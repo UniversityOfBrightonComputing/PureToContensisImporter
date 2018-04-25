@@ -19,29 +19,35 @@ namespace academic_staff_updater
             // 2. Construct AcademicStaff objects for each member
             // 3. Get list of staff from CMS
             // 4. For each Pure staff member
-                // 1. Check if exists in CMS, if not create
-                // 2. Mark staff member as "found in import"
-                // 3. Update staff member
+            // 1. Check if exists in CMS, if not create
+            // 2. Mark staff member as "found in import"
+            // 3. Update staff member
             // 5. At end for each NOT "found in import" delete from CMS
-            ManagementClient contensisClient = ContensisClientFactory.GetClient();
-            string targetProject = ConfigurationManager.AppSettings["cmsMainProject"];
+            //ManagementClient contensisClient = ContensisClientFactory.GetClient();
+            //string targetProject = ConfigurationManager.AppSettings["cmsMainProject"];
 
-            // Get the project
-            var project = contensisClient.Projects.Get(targetProject);
+            //// Get the project
+            //var project = contensisClient.Projects.Get(targetProject);
 
-            AcademicStaff exampleStaff = GetExample();
+            //AcademicStaff exampleStaff = GetExample();
 
-            string result = AddAcademicStaff(project, exampleStaff);
-            if (result == "")
-            {
-                Console.WriteLine("Seemed to go well");
-            }
-            else
-            {
-                Console.WriteLine("We got an error");
-                Console.WriteLine(result);
+            //string result = AddAcademicStaff(project, exampleStaff);
+            //if (result == "")
+            //{
+            //    Console.WriteLine("Seemed to go well");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("We got an error");
+            //    Console.WriteLine(result);
 
-            }
+            //}
+
+            var exampleStaff = GetExample();
+            var pureClient = PureClientFactory.GetClient();
+            Console.WriteLine(pureClient.GetResearchRenderingForStaff(exampleStaff));
+
+
         }
 
         static string AddAcademicStaff(Project project, AcademicStaff staff)
@@ -49,7 +55,7 @@ namespace academic_staff_updater
             var resultMessage = "";
             try
             {
-                var newEntry = project.Entries.New(targetContentType);
+                var newEntry = project.Entries.New("academicStaff");
                 newEntry.Set("pureId", staff.PureId);
                 newEntry.Set("title", staff.Title);
                 newEntry.Set("firstName", staff.FirstName);
@@ -86,7 +92,7 @@ namespace academic_staff_updater
         {
             return new AcademicStaff
             {
-                PureId = "9999",
+                PureId = "39620",
                 Title = "Dr",
                 FirstName = "Dave",
                 LastName = "Lister",
