@@ -131,8 +131,13 @@
     <Compile Include="ContensisClientFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PureContracts\PersonAssociatedEmails.cs" />
+    <Compile Include="PureContracts\PersonName.cs" />
+    <Compile Include="PureContracts\PersonValue.cs" />
     <Compile Include="PureContracts\ReseachPublicationStatus.cs" />
+    <Compile Include="PureContracts\PersonItem.cs" />
     <Compile Include="PureContracts\ResearchItem.cs" />
+    <Compile Include="PureContracts\PersonsResponse.cs" />
     <Compile Include="PureContracts\ResearchOutputResponse.cs" />
     <Compile Include="PureContracts\ResearchPublicationDate.cs" />
     <Compile Include="PureContracts\ResearchRendering.cs" />
@@ -141,7 +146,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

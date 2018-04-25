@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,9 +44,22 @@ namespace academic_staff_updater
 
             //}
 
-            var exampleStaff = GetExample();
+            //var exampleStaff = GetExample();
+            //var pureClient = PureClientFactory.GetClient();
+            //Console.WriteLine(pureClient.GetResearchRenderingForStaff(exampleStaff));
+
             var pureClient = PureClientFactory.GetClient();
-            Console.WriteLine(pureClient.GetResearchRenderingForStaff(exampleStaff));
+            List<AcademicStaff> pureStaff = pureClient.GetAcademicStaff();
+
+            ManagementClient contensisClient = ContensisClientFactory.GetClient();
+            string targetProject = ConfigurationManager.AppSettings["cmsMainProject"];
+            var project = contensisClient.Projects.Get("website");
+
+            foreach(var staff in pureStaff)
+            {
+                AddAcademicStaff(project, staff);
+            }
+
 
 
         }
@@ -88,16 +102,16 @@ namespace academic_staff_updater
 
         }
 
-        static AcademicStaff GetExample()
-        {
-            return new AcademicStaff
-            {
-                PureId = "39620",
-                Title = "Dr",
-                FirstName = "Dave",
-                LastName = "Lister",
-                Email = "email@example.com",
-            };
-        }
+        //static AcademicStaff GetExample()
+        //{
+        //    return new AcademicStaff
+        //    {
+        //        PureId = "39620",
+        //        Title = "Dr",
+        //        FirstName = "Dave",
+        //        LastName = "Lister",
+        //        Email = "email@example.com",
+        //    };
+        //}
     }
 }
