@@ -9,17 +9,22 @@ using Zengenti.Data;
 
 namespace academic_staff_updater
 {
-    class Program : BaseHelper
+    class Program
     {
-        public static ManagementClient contensisClient;
 
         static void Main(string[] args)
         {
-            contensisClient = ManagementClient.Create(
-                clientRootUrl,
-                clientId,
-                clientSharedSecret
-            );
+
+            // 1. Get list of current staff from Pure
+            // 2. Construct AcademicStaff objects for each member
+            // 3. Get list of staff from CMS
+            // 4. For each Pure staff member
+                // 1. Check if exists in CMS, if not create
+                // 2. Mark staff member as "found in import"
+                // 3. Update staff member
+            // 5. At end for each NOT "found in import" delete from CMS
+            ManagementClient contensisClient = ContensisClientFactory.GetClient();
+            string targetProject = ConfigurationManager.AppSettings["cmsMainProject"];
 
             // Get the project
             var project = contensisClient.Projects.Get(targetProject);
