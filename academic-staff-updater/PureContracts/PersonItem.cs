@@ -6,8 +6,8 @@ namespace academic_staff_updater.PureContracts
     [DataContract]
     public class PersonItem
     {
-        [DataMember(Name = "pureId")]
-        public int PureId { get; set; }
+        [DataMember(Name = "uuid")]
+        public string Id { get; set; }
         [DataMember(Name = "name")]
         public PersonName Name { get; set; }
         [DataMember(Name = "titles")]
