@@ -49,16 +49,23 @@ namespace academic_staff_updater
             //Console.WriteLine(pureClient.GetResearchRenderingForStaff(exampleStaff));
 
             var pureClient = PureClientFactory.GetClient();
-            List<AcademicStaff> pureStaff = pureClient.GetAcademicStaff();
+            var resp = pureClient.GetPersons();
+            var content = resp.ToString();
 
-            ManagementClient contensisClient = ContensisClientFactory.GetClient();
-            string targetProject = ConfigurationManager.AppSettings["cmsMainProject"];
-            var project = contensisClient.Projects.Get("website");
+            Console.WriteLine("Breakpoint");
 
-            foreach(var staff in pureStaff)
-            {
-                AddAcademicStaff(project, staff);
-            }
+            Console.WriteLine(resp.ToString());
+
+            //List<AcademicStaff> pureStaff = pureClient.GetAcademicStaff();
+
+            //ManagementClient contensisClient = ContensisClientFactory.GetClient();
+            //string targetProject = ConfigurationManager.AppSettings["cmsMainProject"];
+            //var project = contensisClient.Projects.Get("website");
+
+            //foreach(var staff in pureStaff)
+            //{
+            //    AddAcademicStaff(project, staff);
+            //}
 
 
 

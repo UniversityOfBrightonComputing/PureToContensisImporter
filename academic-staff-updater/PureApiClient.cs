@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using RestSharp;
 using System.Collections.Generic;
+using System.IO;
 
 namespace academic_staff_updater
 {
@@ -20,6 +21,43 @@ namespace academic_staff_updater
             this.baseUrl = baseUrl;
         }
 
+        public string GetPersons()
+        {
+            var jsonParams = new
+            {
+                employmentStatus = "ACTIVE",
+                navigationLink = false,
+                size = 5000,
+                fields = new string[] {
+                    "uuid",
+                    "name.firstName",
+                    "name.lastName",
+                    "titles.value",
+                    "staffOrganisationAssociations.emails.value",
+                }
+            };
+            var http = (HttpWebRequest)WebRequest.Create(new Uri(baseUrl + "/persons"));
+            http.Headers["api-key"] = apiKey;
+            http.Accept = "application/json";
+            http.ContentType = "application/json; charset=utf-8";
+            http.Method = "POST";
+
+             string parsedContent = JsonConvert.SerializeObject(jsonParams);
+            //string parsedContent = "{\"fields\": [\"PureId\", \"titles.value\",\"name.firstName\",\"name.lastName\",\"staffOrganisationAssociations.emails.value\"],\"employmentStatus\": \"ACTIVE\",\"navigationLink\": false,\"size\": 5000}";
+
+            Byte[] bytes = Encoding.UTF8.GetBytes(parsedContent);
+
+            Stream newStream = http.GetRequestStream();
+            newStream.Write(bytes, 0, bytes.Length);
+            newStream.Close();
+
+            var response = http.GetResponse();
+            var stream = response.GetResponseStream();
+            var sr = new StreamReader(stream, Encoding.GetEncoding("utf-8"));
+            var content = sr.ReadToEnd();
+            return content;
+        }
+
         public List<AcademicStaff> GetAcademicStaff()
         {
             var academicStaff = new List<AcademicStaff>();
@@ -28,13 +66,14 @@ namespace academic_staff_updater
             var jsonParams = new
             {
                 employmentStatus = "ACTIVE",
-                size = 5000,
+                navigationLink = false,
+                size = 1,
                 fields = new string[] {
+                    "uuid",
                     "name.firstName",
                     "name.lastName",
-                    "pureId",
-                    "staffOrganisationAssociations.emails.value",
-                    "titles.value"
+                    "titles.value",
+                    "staffOrganisationAssociations.emails.value",                    
                 }
             };
             //Console.WriteLine(jsonParams);
@@ -48,17 +87,13 @@ namespace academic_staff_updater
             {
                 var response = client.Execute<PersonsResponse>(request);
                 Console.WriteLine($"Found {response.Data.Count} people");
-                if (response.Data.Count > 0)
+                if (response.Data != null && response.Data.Count > 0)
                 {
                     foreach (var person in response.Data.Items)
                     {
-                        Console.WriteLine($"{person.Name.FirstName} {person.Name.LastName}");
-                        academicStaff.Add(new AcademicStaff(
-                            person.PureId.ToString(),
-                            person.Titles.First().Value,
-                            person.Name.FirstName,
-                            person.Name.LastName
-                        ));
+                        Console.WriteLine($"{person.Name.FirstName} {person.Name.LastName} - {person.PureId}");
+                        //var newStaff = ConvertPersonToAcademicStaff(person);
+                        //academicStaff.Add(newStaff);
                     }
                 }
 
@@ -97,6 +132,15 @@ namespace academic_staff_updater
             return staffResearchRendering;
 
         }
+
+        public AcademicStaff ConvertPersonToAcademicStaff(PersonItem person) => new AcademicStaff
+        {
+            PureId = person.PureId.ToString(),
+            Title = person.Title,
+            FirstName = person.FirstName,
+            LastName = person.LastName,
+            Email = person.Email
+        };
 
         private T GetResponse<T>(string endpoint)
         {
