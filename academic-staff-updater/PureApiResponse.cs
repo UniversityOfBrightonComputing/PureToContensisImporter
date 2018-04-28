@@ -1,27 +1,28 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace academic_staff_updater
 {
-    public interface IPureApiPagedResponse
-    {
-        bool MorePages();
-    }
 
-    public class PureApiResponse : IPureApiPagedResponse 
+    public class PureApiResponse
     {
         public int count;
         public NavigationLink[] navigationLink;
+        public Array items;
 
-        public bool MorePages()
+        public bool MorePages
         {
-            if (navigationLink != null)
+            get
             {
-                return navigationLink.Any(x => x.Ref == "next");
-            }
-            else
-            {
-                return false;
-            }
+                if (navigationLink != null)
+                {
+                    return navigationLink.Any(x => x.Ref == "next");
+                }
+                else
+                {
+                    return false;
+                }
+            } 
         }
 
         public class NavigationLink

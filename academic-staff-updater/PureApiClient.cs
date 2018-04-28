@@ -2,6 +2,7 @@
 using System;
 using RestSharp;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace academic_staff_updater
 {
@@ -16,29 +17,34 @@ namespace academic_staff_updater
             BaseUrl = baseUrl;
         }
 
-        public List<AcademicStaff> GetAcademicStaff()
+        public List<PersonsResponse.Person> GetPersons(int limit)
         {
-            var staffList = new List<AcademicStaff>();
-            List<PersonsResponse> responses = GetResponses<PersonsResponse>(() => GetBasePersonsRequest(100));
-            foreach(var response in responses)
-            {
-                foreach(var person in response.items)
-                {
-                    var staff = new AcademicStaff
-                    {
-                        Id = person.Id,
-                        Title = person.Title,
-                        FirstName = person.FirstName,
-                        LastName = person.LastName,
-                        Email = person.Email
-                    };
-                    staffList.Add(staff);
-                }   
-            }
-            return staffList;
+            List<PersonsResponse> responses = GetResponses<PersonsResponse>(() => GetBasePersonsRequest(100), limit);
+            var persons = ExtractItemsFromResponses<PersonsResponse.Person, PersonsResponse>(responses);
+            return persons;
         }
 
-        public List<T> GetResponses<T>(Func<RestRequest> baseRequester) where T : IPureApiPagedResponse
+        public List<ResearchOutputsResponse.Output> GetResearchOutputsForEmail(string encodedEmail, int limit)
+        {
+            List<ResearchOutputsResponse> responses = GetResponses<ResearchOutputsResponse>(() => GetBaseReseachOutputsRequest(encodedEmail, 25), limit);
+            var outputs = ExtractItemsFromResponses<ResearchOutputsResponse.Output, ResearchOutputsResponse>(responses);
+            return outputs;
+        }
+
+        public List<T> ExtractItemsFromResponses<T, U>(List<U> responses) where U : PureApiResponse
+        {
+            var items = new List<T>();
+            foreach (var response in responses)
+            {
+                foreach (T item in response.items)
+                {
+                    items.Add(item);
+                }
+            }
+            return items;
+        }
+
+        public List<T> GetResponses<T>(Func<RestRequest> baseRequester, int limit) where T : PureApiResponse
         {
             bool morePages = true;
             int pageSize = 10;
@@ -47,7 +53,7 @@ namespace academic_staff_updater
             var responses = new List<T>();
             var client = new RestClient(BaseUrl);
 
-            while (morePages)
+            while (morePages && currentOffset < limit )
             {
                 var request = baseRequester();
                 request.AddQueryParameter("offset", currentOffset.ToString());
@@ -59,7 +65,7 @@ namespace academic_staff_updater
                     if (content != null)
                     {
                         responses.Add(content);
-                        morePages = content.MorePages();
+                        morePages = content.MorePages;
                         currentOffset += pageSize;
                     }
                     else

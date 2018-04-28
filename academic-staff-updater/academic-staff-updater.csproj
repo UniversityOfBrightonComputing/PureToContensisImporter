@@ -126,21 +126,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcademicStaff.cs" />
+    <Compile Include="PureApiResponse.cs" />
+    <Compile Include="PersonsResponse.cs" />
     <Compile Include="PureApiClient.cs" />
     <Compile Include="PureClientFactory.cs" />
     <Compile Include="ContensisClientFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PureContracts\PersonAssociatedEmails.cs" />
-    <Compile Include="PureContracts\PersonName.cs" />
-    <Compile Include="PureContracts\PersonValue.cs" />
-    <Compile Include="PureContracts\ReseachPublicationStatus.cs" />
-    <Compile Include="PureContracts\PersonItem.cs" />
-    <Compile Include="PureContracts\ResearchItem.cs" />
-    <Compile Include="PureContracts\PersonsResponse.cs" />
-    <Compile Include="PureContracts\ResearchOutputResponse.cs" />
-    <Compile Include="PureContracts\ResearchPublicationDate.cs" />
-    <Compile Include="PureContracts\ResearchRendering.cs" />
+    <Compile Include="ResearchOutputsResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

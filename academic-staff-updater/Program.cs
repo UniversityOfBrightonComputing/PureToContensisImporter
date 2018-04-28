@@ -49,12 +49,12 @@ namespace academic_staff_updater
             //Console.WriteLine(pureClient.GetResearchRenderingForStaff(exampleStaff));
 
             var pureClient = PureClientFactory.GetClient();
-            var resp = pureClient.GetPersons();
-            var content = resp.ToString();
+            var persons = pureClient.GetPersons(10);
+            var staff = GetAcademicStaffFromPersons(persons);
 
             Console.WriteLine("Breakpoint");
 
-            Console.WriteLine(resp.ToString());
+            Console.WriteLine(staff.ToString());
 
             //List<AcademicStaff> pureStaff = pureClient.GetAcademicStaff();
 
@@ -71,13 +71,31 @@ namespace academic_staff_updater
 
         }
 
+        static List<AcademicStaff> GetAcademicStaffFromPersons(List<PersonsResponse.Person> persons)
+        {
+            var staff = new List<AcademicStaff>();
+            foreach (var person in persons)
+            {
+                var member = new AcademicStaff
+                {
+                    Id = person.Id,
+                    Title = person.Title,
+                    FirstName = person.FirstName,
+                    LastName = person.LastName,
+                    Email = person.Email
+                };
+                staff.Add(member);
+            }
+            return staff;
+        }
+
         static string AddAcademicStaff(Project project, AcademicStaff staff)
         {
             var resultMessage = "";
             try
             {
                 var newEntry = project.Entries.New("academicStaff");
-                newEntry.Set("pureId", staff.PureId);
+                newEntry.Set("pureId", staff.Id);
                 newEntry.Set("title", staff.Title);
                 newEntry.Set("firstName", staff.FirstName);
                 newEntry.Set("lastName", staff.LastName);

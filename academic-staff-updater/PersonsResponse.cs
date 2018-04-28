@@ -8,7 +8,7 @@ namespace academic_staff_updater
 {
     public class PersonsResponse : PureApiResponse
     {
-        public Person[] items;
+        public new Person[] items;
 
         public class Person
         {
