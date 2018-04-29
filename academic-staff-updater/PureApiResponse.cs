@@ -4,11 +4,11 @@ using System.Linq;
 namespace academic_staff_updater
 {
 
-    public class PureApiResponse
+    public abstract class PureApiResponse
     {
         public int count;
         public NavigationLink[] navigationLink;
-        public Array items;
+        private Array items;
 
         public bool MorePages
         {
@@ -24,6 +24,8 @@ namespace academic_staff_updater
                 }
             } 
         }
+
+        public Array Items { get => items; set => items = value; }
 
         public class NavigationLink
         {

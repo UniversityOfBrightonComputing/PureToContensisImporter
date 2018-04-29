@@ -36,7 +36,7 @@ namespace academic_staff_updater
             var items = new List<T>();
             foreach (var response in responses)
             {
-                foreach (T item in response.items)
+                foreach (T item in response.Items)
                 {
                     items.Add(item);
                 }

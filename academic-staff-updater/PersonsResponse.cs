@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace academic_staff_updater
+﻿namespace academic_staff_updater
 {
     public class PersonsResponse : PureApiResponse
     {
-        public new Person[] items;
+        public Person[] items;
 
         public class Person
         {

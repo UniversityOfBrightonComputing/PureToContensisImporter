@@ -2,7 +2,7 @@
 {
     class ResearchOutputsResponse : PureApiResponse
     {
-        public new Output[] items;
+        public Output[] items;
 
         public class Output
         {
