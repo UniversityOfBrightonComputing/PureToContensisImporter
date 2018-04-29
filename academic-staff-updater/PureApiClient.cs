@@ -20,34 +20,36 @@ namespace academic_staff_updater
         public List<PersonsResponse.Person> GetPersons(int limit)
         {
             List<PersonsResponse> responses = GetResponses<PersonsResponse>(() => GetBasePersonsRequest(100), limit);
-            var persons = ExtractItemsFromResponses<PersonsResponse.Person, PersonsResponse>(responses);
+            var persons = new List<PersonsResponse.Person>();
+            foreach (var response in responses)
+            {
+                foreach (var item in response.items)
+                {
+                    persons.Add(item);
+                }
+            }
             return persons;
         }
 
         public List<ResearchOutputsResponse.Output> GetResearchOutputsForEmail(string encodedEmail, int limit)
         {
             List<ResearchOutputsResponse> responses = GetResponses<ResearchOutputsResponse>(() => GetBaseReseachOutputsRequest(encodedEmail, 25), limit);
-            var outputs = ExtractItemsFromResponses<ResearchOutputsResponse.Output, ResearchOutputsResponse>(responses);
+            var outputs = new List<ResearchOutputsResponse.Output>();
+            foreach (var response in responses)
+            {
+                foreach (var item in response.items)
+                {
+                    outputs.Add(item);
+                }
+            }
             return outputs;
         }
 
-        public List<T> ExtractItemsFromResponses<T, U>(List<U> responses) where U : PureApiResponse
-        {
-            var items = new List<T>();
-            foreach (var response in responses)
-            {
-                foreach (T item in response.Items)
-                {
-                    items.Add(item);
-                }
-            }
-            return items;
-        }
 
         public List<T> GetResponses<T>(Func<RestRequest> baseRequester, int limit) where T : PureApiResponse
         {
             bool morePages = true;
-            int pageSize = 10;
+            int pageSize = 2;
             int currentOffset = 0;
 
             var responses = new List<T>();
@@ -65,7 +67,7 @@ namespace academic_staff_updater
                     if (content != null)
                     {
                         responses.Add(content);
-                        morePages = content.MorePages;
+                        morePages = content.MorePages();
                         currentOffset += pageSize;
                     }
                     else

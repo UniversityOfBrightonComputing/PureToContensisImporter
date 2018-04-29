@@ -126,9 +126,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcademicStaff.cs" />
-    <Compile Include="PureApiResponse.cs" />
     <Compile Include="PersonsResponse.cs" />
     <Compile Include="PureApiClient.cs" />
+    <Compile Include="PureApiResponse.cs" />
     <Compile Include="PureClientFactory.cs" />
     <Compile Include="ContensisClientFactory.cs" />
     <Compile Include="Program.cs" />

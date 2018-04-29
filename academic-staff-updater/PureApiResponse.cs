@@ -8,30 +8,25 @@ namespace academic_staff_updater
     {
         public int count;
         public NavigationLink[] navigationLink;
-        private Array items;
 
-        public bool MorePages
+        public bool MorePages()
         {
-            get
+            if (navigationLink != null)
             {
-                if (navigationLink != null)
-                {
-                    return navigationLink.Any(x => x.Ref == "next");
-                }
-                else
-                {
-                    return false;
-                }
-            } 
-        }
+                return navigationLink.Any(x => x.Ref == "next");
+            }
+            else
+            {
+                return false;
+            }
 
-        public Array Items { get => items; set => items = value; }
+        }
 
         public class NavigationLink
         {
             public string Ref;
             public string href;
-        } 
+        }
 
         public class Value
         {

@@ -49,7 +49,7 @@ namespace academic_staff_updater
             //Console.WriteLine(pureClient.GetResearchRenderingForStaff(exampleStaff));
 
             var pureClient = PureClientFactory.GetClient();
-            var persons = pureClient.GetPersons(10);
+            var persons = pureClient.GetPersons(5);
             var staff = GetAcademicStaffFromPersons(persons);
 
             Console.WriteLine("Breakpoint");
