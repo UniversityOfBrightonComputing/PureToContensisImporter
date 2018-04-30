@@ -126,6 +126,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcademicStaff.cs" />
+    <Compile Include="CmsClient.cs" />
+    <Compile Include="CmsClientFactory.cs" />
     <Compile Include="PersonsResponse.cs" />
     <Compile Include="PureApiClient.cs" />
     <Compile Include="PureApiResponse.cs" />
