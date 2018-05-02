@@ -21,7 +21,7 @@ RIS and CMS configuration
 
 **Pure**
 
-In the Administrator section Create an API Key (in Security settings) and grant it access to the endpoints Person and Research output.
+In the Administrator section create an API Key (in Security settings) and grant it access to the endpoints Person and Research output.
 
 **Contensis**
 

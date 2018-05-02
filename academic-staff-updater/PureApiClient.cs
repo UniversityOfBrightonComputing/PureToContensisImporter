@@ -17,9 +17,12 @@ namespace academic_staff_updater
             BaseUrl = baseUrl;
         }
 
-        public List<PersonsResponse.Person> GetPersons(int limit)
+        public List<PersonsResponse.Person> GetPersons(int limit, int pageSize = 100)
         {
-            List<PersonsResponse> responses = GetResponses<PersonsResponse>(() => GetBasePersonsRequest(100), limit);
+            List<PersonsResponse> responses = GetResponses<PersonsResponse>(
+                () => GetBasePersonsRequest(pageSize),
+                limit
+            );
             var persons = new List<PersonsResponse.Person>();
             foreach (var response in responses)
             {
@@ -31,9 +34,12 @@ namespace academic_staff_updater
             return persons;
         }
 
-        public List<ResearchOutputsResponse.Output> GetResearchOutputsForEmail(string encodedEmail, int limit)
+        public List<ResearchOutputsResponse.Output> GetResearchOutputsForEmail(string encodedEmail, int limit, int pageSize = 25)
         {
-            List<ResearchOutputsResponse> responses = GetResponses<ResearchOutputsResponse>(() => GetBaseReseachOutputsRequest(encodedEmail, 25), limit);
+            List<ResearchOutputsResponse> responses = GetResponses<ResearchOutputsResponse>(
+                () => GetBaseReseachOutputsRequest(encodedEmail, pageSize),
+                limit
+            );
             var outputs = new List<ResearchOutputsResponse.Output>();
             foreach (var response in responses)
             {
@@ -49,7 +55,7 @@ namespace academic_staff_updater
         public List<T> GetResponses<T>(Func<RestRequest> baseRequester, int limit) where T : PureApiResponse
         {
             bool morePages = true;
-            int pageSize = 2;
+            int pageSize = 25;
             int currentOffset = 0;
 
             var responses = new List<T>();
@@ -108,11 +114,21 @@ namespace academic_staff_updater
 
         public RestRequest GetBaseReseachOutputsRequest(string email, int size)
         {
-            var request = new RestRequest($"/persons/{email}/research-outputs");
+            return GetBaseReseachOutputsRequestById(email, "email", size);
+        }
+
+        public RestRequest GetBaseReseachOutputsRequest(int pureId, int size)
+        {
+            return GetBaseReseachOutputsRequestById(pureId.ToString(), "pure", size);
+        }
+
+        public RestRequest GetBaseReseachOutputsRequestById(string id, string idClassification, int size)
+        {
+            var request = new RestRequest($"/persons/{id}/research-outputs");
             AddRestHeaders(request);
 
-            request.AddQueryParameter("idClassification", "email");
-            request.AddQueryParameter("rendering", "apa");
+            request.AddQueryParameter("idClassification", idClassification);
+            request.AddQueryParameter("rendering", "harvard");
             request.AddQueryParameter("fields", "rendering");
             request.AddQueryParameter("order", "-publicationYear");
             request.AddQueryParameter("size", size.ToString());
