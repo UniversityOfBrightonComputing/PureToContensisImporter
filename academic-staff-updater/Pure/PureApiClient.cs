@@ -4,7 +4,7 @@ using RestSharp;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace academic_staff_updater
+namespace academic_staff_updater.Pure
 {
     class PureApiClient
     {

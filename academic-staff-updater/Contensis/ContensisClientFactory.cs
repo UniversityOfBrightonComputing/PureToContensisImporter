@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using Zengenti.Contensis.Management;
 
-namespace academic_staff_updater
+namespace academic_staff_updater.Contensis
 {
     internal static class ContensisClientFactory
     {

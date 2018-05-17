@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace academic_staff_updater
+namespace academic_staff_updater.Pure
 {
     internal static class PureClientFactory
     {

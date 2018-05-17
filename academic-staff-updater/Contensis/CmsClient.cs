@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Zengenti.Contensis.Management;
 using Zengenti.Contensis.Management.Workflow.Approval;
 
-namespace academic_staff_updater
+namespace academic_staff_updater.Contensis
 {
     class CmsClient
     {

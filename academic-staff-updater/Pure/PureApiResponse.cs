@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace academic_staff_updater
+namespace academic_staff_updater.Pure
 {
 
     public abstract class PureApiResponse

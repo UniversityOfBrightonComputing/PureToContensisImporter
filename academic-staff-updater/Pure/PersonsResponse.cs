@@ -1,4 +1,4 @@
-﻿namespace academic_staff_updater
+﻿namespace academic_staff_updater.Pure
 {
     public class PersonsResponse : PureApiResponse
     {

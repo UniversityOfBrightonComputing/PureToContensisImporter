@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using academic_staff_updater.Contensis;
+using academic_staff_updater.Pure;
 
 namespace academic_staff_updater
 {
@@ -16,7 +18,7 @@ namespace academic_staff_updater
             var staff = ConvertPersonsToAcademicStaff(persons);
 
             // 3. Delete current Academic Staff in CMS
-            var cmsClient = CmsClientFactory.GetClient();
+            var cmsClient = Contensis.CmsClientFactory.GetClient();
             bool deleteSuccess = cmsClient.DeleteAcademicStaff();
             bool addSuccess = false;
             
