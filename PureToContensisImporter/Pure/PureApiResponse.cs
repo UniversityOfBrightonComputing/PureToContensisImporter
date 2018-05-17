@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
-namespace academic_staff_updater.Pure
+namespace PureToContensisImporter.Pure
 {
 
     public abstract class PureApiResponse

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using academic_staff_updater.Contensis;
-using academic_staff_updater.Pure;
+using PureToContensisImporter.Contensis;
+using PureToContensisImporter.Pure;
 
-namespace academic_staff_updater
+namespace PureToContensisImporter
 {
     class Program
     {
@@ -21,11 +21,11 @@ namespace academic_staff_updater
             var cmsClient = CmsClientFactory.GetClient();
             bool deleteSuccess = cmsClient.DeleteAcademicStaff();
             bool addSuccess = false;
-            
+
             // 4. Add the AcademicStaff to CMS
-            if(deleteSuccess)
+            if (deleteSuccess)
             {
-               addSuccess = cmsClient.AddAcademicStaff(staff);   
+                addSuccess = cmsClient.AddAcademicStaff(staff);
             }
 
             if (addSuccess)

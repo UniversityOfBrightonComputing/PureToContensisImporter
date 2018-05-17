@@ -1,4 +1,4 @@
-﻿namespace academic_staff_updater.Contensis
+﻿namespace PureToContensisImporter.Contensis
 {
     public class AcademicStaff
     {

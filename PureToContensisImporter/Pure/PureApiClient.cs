@@ -2,9 +2,8 @@
 using System;
 using RestSharp;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace academic_staff_updater.Pure
+namespace PureToContensisImporter.Pure
 {
     class PureApiClient
     {

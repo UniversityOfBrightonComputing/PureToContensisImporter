@@ -1,4 +1,4 @@
-﻿namespace academic_staff_updater.Pure
+﻿namespace PureToContensisImporter.Pure
 {
     public class PersonsResponse : PureApiResponse
     {

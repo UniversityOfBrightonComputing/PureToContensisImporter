@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Zengenti.Contensis.Management;
 using Zengenti.Contensis.Management.Workflow.Approval;
 
-namespace academic_staff_updater.Contensis
+namespace PureToContensisImporter.Contensis
 {
     class CmsClient
     {
@@ -53,6 +53,7 @@ namespace academic_staff_updater.Contensis
             foreach(var staff in staffList)
             {
                 succeeded = AddAcademicStaff(staff);
+                Console.WriteLine($"Added {staff.Title} {staff.FirstName} {staff.LastName}");
                 if (!succeeded) break;
             }
 
