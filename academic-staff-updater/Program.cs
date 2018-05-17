@@ -18,7 +18,7 @@ namespace academic_staff_updater
             var staff = ConvertPersonsToAcademicStaff(persons);
 
             // 3. Delete current Academic Staff in CMS
-            var cmsClient = Contensis.CmsClientFactory.GetClient();
+            var cmsClient = CmsClientFactory.GetClient();
             bool deleteSuccess = cmsClient.DeleteAcademicStaff();
             bool addSuccess = false;
             
