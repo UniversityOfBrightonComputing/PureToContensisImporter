@@ -9,12 +9,10 @@ Imports Person entries in Pure into a ContentType in Contensis called Academic S
 
 Requirements
 ---
-Windows (because Zengenti.Contensis.Management is a net462 package). Can be run on CMS server or locally.
 
-* Visual Studio (to build)
-* .Net 4.6.2 (to run)
+* .Net Core 2.0 Runtime
 * Pure 5.11 installation
-* Contensis 11.0 installation
+* Contensis >11.0 installation
 
 RIS and CMS configuration
 ---
