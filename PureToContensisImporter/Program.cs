@@ -25,7 +25,7 @@ namespace PureToContensisImporter
             // 4. Add the AcademicStaff to CMS
             if (deleteSuccess)
             {
-                addSuccess = cmsClient.AddAcademicStaff(staff);
+                addSuccess = cmsClient.AddAcademicStaff(staff);                
             }
 
             if (addSuccess)

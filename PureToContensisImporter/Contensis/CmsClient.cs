@@ -41,6 +41,8 @@ namespace PureToContensisImporter.Contensis
             }
             catch (Exception e)
             {
+                Console.WriteLine($"Exception while attepting to add: {staff.Id}");
+                Console.WriteLine(e.StackTrace);
                 Console.WriteLine(e.Message);
             }
 
@@ -53,8 +55,15 @@ namespace PureToContensisImporter.Contensis
             foreach(var staff in staffList)
             {
                 succeeded = AddAcademicStaff(staff);
-                Console.WriteLine($"Added {staff.Title} {staff.FirstName} {staff.LastName}");
-                if (!succeeded) break;
+                if (succeeded)
+                {
+                    Console.WriteLine($"Added {staff.Title} {staff.FirstName} {staff.LastName}");
+                }
+                else
+                {
+                    Console.WriteLine($"Could not add {staff.Title} {staff.FirstName} {staff.LastName}");
+                    break;
+                }
             }
 
             return succeeded;

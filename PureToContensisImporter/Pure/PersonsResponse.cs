@@ -9,7 +9,7 @@
             public int pureId;
             public Name name;
             public Value[] titles;
-            public AssociatedEmail[] staffOrganisationAssociations;
+            public AssociatedEmail[] staffOrganisationAssociations = null;
 
             public int Id
             {
@@ -61,7 +61,7 @@
                                 {
                                     if (email.value != null)
                                     {
-                                        return email.value;
+                                        return email.value.ToLower();
                                     }
 
                                 }
@@ -81,7 +81,7 @@
 
             public class AssociatedEmail
             {
-                public Value[] emails;
+                public Value[] emails = null;
             }
         }
 
